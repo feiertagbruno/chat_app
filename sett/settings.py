@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-(s$o83&75ie!#v0^gg&9673nbkw*d%$l@#iqf*@1)^i%1^%py1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',
 ]
+
+ASGI_APPLICATION = "sett.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
